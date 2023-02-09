@@ -41,7 +41,7 @@ const CompareBasketProductItem: FC<PropsType> = (props): JSX.Element => {
           </CCol>
           <CCol lg={1}>
             <CButton
-              color="link"
+              color="danger"
               onClick={() => {
                 props.onClick(props.product.id);
               }}

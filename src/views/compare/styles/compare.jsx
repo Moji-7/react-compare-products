@@ -7,15 +7,17 @@ import { CButton } from "@coreui/react";
 
 
 export const ButtonAddTocompare = styled(CButton)({
-  color: 'warning',
-  backgroundColor: '#ccc',
+  color:'warning',
   borderRadius: 4,
-  fontSize: '36px'
+  position:'relative',
+  top: 'calc(-510px)',
+  left: '190px'
 })
 
 export const ButtonAddedTocompare = styled(CButton)({
   color: 'warning',
-  backgroundColor: '#ccc',
   borderRadius: 4,
-  fontSize: '36px'
+  position:'relative',
+  top: 'calc(-510px)',
+  left: '130px'
 })

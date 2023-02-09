@@ -5,6 +5,8 @@ import CompareBasketProductItem from "./CompareBasketProductItem";
 
 import { compareContext } from "./ProductList";
 import { ProductItem } from "./ProductItem";
+
+//import { useTransition, animated } from "react-spring";
 import { useNavigate } from "react-router-dom";
 
 const CompareListContainer = (props:any) => {
@@ -16,9 +18,18 @@ const CompareListContainer = (props:any) => {
 
   ////////// position: 'fixed'///////////////////////////////////////////////////////////////////////////////////
   const { productcompareBasket, setProductCompareBasket, setCompareRemoveProduct } =useContext(compareContext);
-
+  //const transitions = useTransition(productcompareBasket, item => item.key, {
+   // from: { opacity: 0 },
+  //  enter: { opacity: 1 },
+  //  leave: { opacity: 0 },
+ // });
   /////////////////////////////////////////////////////////////////////////////////////////////
-  const handlebasketItemClick = (productId: number) => {
+  const [compareBasketCount,setCompareBasketCount]=useState(0);
+  useEffect(()=>{
+	  setCompareBasketCount(productcompareBasket.length)
+  },[productcompareBasket])
+  /////////////////////////////////////////////////////////////////////////////////////////////
+  const handleBasketRemoveClick = (productId: number) => {
     //e.preventDefault();
 	setCompareRemoveProduct(productId)
     const filteredArray = productcompareBasket.filter(
@@ -27,8 +38,11 @@ const CompareListContainer = (props:any) => {
     setProductCompareBasket(filteredArray);
   };
   /////////////////////////////////////////////////////////////////////////////////////////////
+  const handleBasketRemoveAll=()=>{
+	  setProductCompareBasket([])
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////
   const navigate = useNavigate();
-
   const toComponentB = () => {
     navigate("/ComparingList", { state: productcompareBasket });
   };
@@ -38,13 +52,20 @@ const CompareListContainer = (props:any) => {
       <CRow className="align-items-start">
         <CCol lg={9}>
           <CRow className="align-items-start">
+		  {/* {transitions.map(({ product: ProductItem, props, key }) => (
+        <animated.div key={key} style={props}>
+           <CompareBasketProductItem
+                      product={product}
+                      onClick={handleBasketRemoveClick}
+                    />
+        </animated.div>*/}
             {productcompareBasket &&
               productcompareBasket.map((product: ProductItem, index) => (
                 <CCol lg={3} key={index}>
                   <>
                     <CompareBasketProductItem
                       product={product}
-                      onClick={handlebasketItemClick}
+                      onClick={handleBasketRemoveClick}
                     />
                   </>
                 </CCol>
@@ -54,15 +75,22 @@ const CompareListContainer = (props:any) => {
         <CCol lg={3}>
           <CAlert color="danger">
             <CButton
-              color="dark"
+              color="warning"
               shape="rounded-pill"
               onClick={() => {
                 toComponentB();
               }}
             >
-              Compare
+              Compare ({compareBasketCount})
             </CButton>
+			
           </CAlert>
+		   <CButton
+               color="link"
+              onClick={() => {
+                handleBasketRemoveAll();
+              }}>clear all
+            </CButton>
         </CCol>
       </CRow>
     </CContainer>

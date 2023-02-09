@@ -23,12 +23,11 @@ const CompareAddButton: FC<PropsType> = (props): JSX.Element => {
   /////////////////////////////////////////////////////////////////////////////////////////////
 	useEffect(() => {
 			if(compareRemoveProduct){
-				//setIsAddToCompare(!isAddToCompare);
-			console.log("compareRemoveProduct is aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa : "+ compareRemoveProduct+" inputRef :"+inputRef.current);
-			//setCompareRemoveProduct(0)			  
-			  //ref.current.id=compareRemoveProduct
-			// compareSelectButton(compareRemoveProduct.id);
+			console.log("in CompareAddButton COMPONENT; compareRemoveProduct is  : "+ compareRemoveProduct+" and inputRef :"+inputRef.current?.getAttribute('data-productId'));
+			if(Number(inputRef.current?.getAttribute('data-productId'))== compareRemoveProduct)
+				setIsAddToCompare(!isAddToCompare)
 			}
+			setCompareRemoveProduct(0)
    },[compareRemoveProduct]);  
   /////////////////////////////////////////////////////////////////////////////////////////////
   
@@ -44,19 +43,13 @@ const CompareAddButton: FC<PropsType> = (props): JSX.Element => {
 
   /////////////////////////////////////////////////////////////////////////////////////////////
   return (
-    <CContainer >
-      <CRow className="align-items-start">
-        <CCol lg={12}>
-		sss=product id ={props.product.id} and closed is {compareRemoveProduct} 
-		
+<>
         {(!isAddToCompare  ) ? ( 
-			<ButtonAddTocompare  ref={inputRef} value={props.product.id} onClick={ () => compareSelectButton(props.product.id)}>add!</ButtonAddTocompare>
+			<ButtonAddTocompare color='warning'   ref={inputRef} data-productId={props.product.id} onClick={ () => compareSelectButton(props.product.id)}>compare</ButtonAddTocompare>
 			) : (
-			<ButtonAddedTocompare ref={inputRef} value={props.product.id} onClick={ () => compareSelectButton(props.product.id)}>remove</ButtonAddedTocompare>
+			<ButtonAddedTocompare color='warning' ref={inputRef} data-productId={props.product.id} onClick={ () => compareSelectButton(props.product.id)}>remove compare</ButtonAddedTocompare>
 			)}
-        </CCol>
-      </CRow>
-    </CContainer>
+     </>
   );
 };
 

@@ -38,7 +38,7 @@ const ProductList = () => {
   const compareSelectButton = (product:ProductItem) => {
 	  
 	   if (!productcompareBasket.includes(product)) 
-        setProductCompareBasket([...productcompareBasket, product]);
+        setProductCompareBasket([ product,...productcompareBasket]);
    
 	   if (productcompareBasket.includes(product))
 		 setProductCompareBasket(productcompareBasket.filter(x => x.id !== product.id));
