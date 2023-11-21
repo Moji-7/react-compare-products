@@ -9,9 +9,5 @@ pipeline {
         sh 'npm config ls'
       }
     }
-    stage ('Install dependencies') { // second 
-    tool name: 'node', type: 'nodejs' 
-    sh 'npm install' 
-  }
   }
 }
